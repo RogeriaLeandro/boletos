@@ -7,7 +7,7 @@ public enum SituacaoBoleto {
 
     private String descricaoSituacaoBoleto;
 
-    SituacaoBoleto(String descricaoSituacaoBoleto) {
+    SituacaoBoleto(String descricaoSituacaoBoleto){
         this.descricaoSituacaoBoleto = descricaoSituacaoBoleto;
     }
 
