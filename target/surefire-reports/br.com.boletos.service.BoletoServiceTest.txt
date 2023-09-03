@@ -1,0 +1,49 @@
+-------------------------------------------------------------------------------
+Test set: br.com.boletos.service.BoletoServiceTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.504 s <<< FAILURE! - in br.com.boletos.service.BoletoServiceTest
+nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociadoeSituacaoBoleto  Time elapsed: 0.476 s  <<< ERROR!
+org.mockito.exceptions.misusing.WrongTypeOfReturnValue: 
+
+Optional cannot be returned by findByUuidAssociadoAndSituacaoBoleto()
+findByUuidAssociadoAndSituacaoBoleto() should return List
+***
+If you're unsure why you're getting above error read on.
+Due to the nature of the syntax above problem might occur because:
+1. This exception *might* occur in wrongly written multi-threaded tests.
+   Please refer to Mockito FAQ on limitations of concurrency testing.
+2. A spy is stubbed using when(spy.foo()).then() syntax. It is safer to stub spies - 
+   - with doReturn|Throw() family of methods. More in javadocs for Mockito.spy() method.
+
+	at br.com.boletos.service.BoletoServiceTest.nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociadoeSituacaoBoleto(BoletoServiceTest.java:67)
+
+consultarBoletosPorUuidAssociado  Time elapsed: 0.01 s  <<< ERROR!
+org.mockito.exceptions.misusing.WrongTypeOfReturnValue: 
+
+Optional cannot be returned by findByUuidAssociado()
+findByUuidAssociado() should return List
+***
+If you're unsure why you're getting above error read on.
+Due to the nature of the syntax above problem might occur because:
+1. This exception *might* occur in wrongly written multi-threaded tests.
+   Please refer to Mockito FAQ on limitations of concurrency testing.
+2. A spy is stubbed using when(spy.foo()).then() syntax. It is safer to stub spies - 
+   - with doReturn|Throw() family of methods. More in javadocs for Mockito.spy() method.
+
+	at br.com.boletos.service.BoletoServiceTest.consultarBoletosPorUuidAssociado(BoletoServiceTest.java:37)
+
+nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociado  Time elapsed: 0.003 s  <<< ERROR!
+org.mockito.exceptions.misusing.WrongTypeOfReturnValue: 
+
+Optional cannot be returned by findByUuidAssociado()
+findByUuidAssociado() should return List
+***
+If you're unsure why you're getting above error read on.
+Due to the nature of the syntax above problem might occur because:
+1. This exception *might* occur in wrongly written multi-threaded tests.
+   Please refer to Mockito FAQ on limitations of concurrency testing.
+2. A spy is stubbed using when(spy.foo()).then() syntax. It is safer to stub spies - 
+   - with doReturn|Throw() family of methods. More in javadocs for Mockito.spy() method.
+
+	at br.com.boletos.service.BoletoServiceTest.nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociado(BoletoServiceTest.java:46)
+
