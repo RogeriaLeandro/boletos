@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Boletos {
+public class Boleto {
     
    	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
