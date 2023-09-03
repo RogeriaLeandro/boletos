@@ -19,7 +19,7 @@ public class BoletoTestHelper {
     public static final String CNPJ = "91.957.952/0001-53";
     public static final String CPF_NAO_FORMATADO = "12312312343";
     public static final String CNPJ_NAO_FORMATADO = "91957952000153";
-    public static final String ID_ASSOCIADO = UUID.randomUUID().toString();
+    public static final String ID_ASSOCIADO = "32ce9e27-926a-458a-9a1e-c822d164c167";
 
     public static List<BoletoDTO> criarBoletosDTO() {
         return List.of(
@@ -36,7 +36,7 @@ public class BoletoTestHelper {
         boleto.setIdBoleto(10000);
         boleto.setValor(new BigDecimal(500.00));
         boleto.setVencimento(LocalDate.now());
-        boleto.setUuidAssociado(UUID.randomUUID());
+        boleto.setUuidAssociado(UUID.fromString(ID_ASSOCIADO));
         boleto.setDocumentoPagador(CPF);
         boleto.setNomePagador("Nome");
         boleto.setNomeFantasiaPagador("NomeFantasia");
@@ -48,7 +48,7 @@ public class BoletoTestHelper {
                 .idBoleto("100001")
                 .valor(new BigDecimal(10000.00))
                 .vencimento(LocalDate.now())
-                .uuidAssociado(UUID.randomUUID().toString())
+                .uuidAssociado(ID_ASSOCIADO)
                 .nome("João")
                 .documento(CPF)
                 .nomeFantasia("João Marcelo")

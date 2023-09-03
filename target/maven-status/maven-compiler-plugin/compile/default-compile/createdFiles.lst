@@ -1,7 +1,12 @@
+br/com/boletos/utils/PopuladorH2.class
 br/com/boletos/integracao/associado/dto/AssociadoDTO.class
+br/com/boletos/exceptions/BoletoPagoException.class
+br/com/boletos/model/BoletoIdUnico.class
 br/com/boletos/integracao/associado/service/AssociadoService.class
+br/com/boletos/exceptions/ValorDeBoletoDivergenteNoPagamentoException.class
 br/com/boletos/v1/dto/BoletoDTO.class
 br/com/boletos/v1/controller/BoletoController.class
+br/com/boletos/integracao/associado/dto/AssociadoDTO$AssociadoDTOBuilder.class
 br/com/boletos/integracao/associado/client/AssociadoClient.class
 br/com/boletos/config/SwaggerConfig.class
 br/com/boletos/v1/dto/BoletoDTO$BoletoDTOBuilder.class
