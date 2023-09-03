@@ -51,25 +51,25 @@ public class BoletoResource {
 		// 	.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.noContent.build());
 	}
 
-	@Operation(summary = "Efetua Pagamento de Boleto - Busca por Documento, Identificador e Valor do Boleto")
-	@ApiResponses(value = {  @ApiResponse(code = 200, message = "Success"),
-        @ApiResponse(code = 204, message = "No Content"),
-        @ApiResponse(code = 400, message = "Bad Request"),
-        @ApiResponse(code = 401, message = "Unauthorized"),
-        @ApiResponse(code = 500, message = "Internal Server Error")})
-	@PutMapping(value = "/{uuid}")
-	public ResponseEntity<String> alteraAssociado(@PathVariable UUID uuid, @RequestBody Associado associado) {
-		
-		Associado associadoAtual = associadoService.findById(uuid);
-		
-		if(associadoAtual != null) {
-			BeanUtils.copyProperties(associado, associadoAtual, "uuid");
-			associadoService.cadastrarAssociado(associadoAtual);
-			return ResponseEntity.status(HttpStatus.OK).body("Associado Alterado");
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Associado Não Encontrado");
-		}
-	}
+//	@Operation(summary = "Efetua Pagamento de Boleto - Busca por Documento, Identificador e Valor do Boleto")
+//	@ApiResponses(value = {  @ApiResponse(code = 200, message = "Success"),
+//        @ApiResponse(code = 204, message = "No Content"),
+//        @ApiResponse(code = 400, message = "Bad Request"),
+//        @ApiResponse(code = 401, message = "Unauthorized"),
+//        @ApiResponse(code = 500, message = "Internal Server Error")})
+//	@PutMapping(value = "/{uuid}")
+//	public ResponseEntity<String> alteraAssociado(@PathVariable UUID uuid, @RequestBody Associado associado) {
+//
+//		Associado associadoAtual = associadoService.findById(uuid);
+//
+//		if(associadoAtual != null) {
+//			BeanUtils.copyProperties(associado, associadoAtual, "uuid");
+//			associadoService.cadastrarAssociado(associadoAtual);
+//			return ResponseEntity.status(HttpStatus.OK).body("Associado Alterado");
+//		} else {
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Associado Não Encontrado");
+//		}
+//	}
 
 
     
