@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: br.com.boletos.service.BoletoServiceTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.504 s <<< FAILURE! - in br.com.boletos.service.BoletoServiceTest
-nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociadoeSituacaoBoleto  Time elapsed: 0.476 s  <<< ERROR!
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.595 s <<< FAILURE! - in br.com.boletos.service.BoletoServiceTest
+nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociadoeSituacaoBoleto  Time elapsed: 0.56 s  <<< ERROR!
 org.mockito.exceptions.misusing.WrongTypeOfReturnValue: 
 
 Optional cannot be returned by findByUuidAssociadoAndSituacaoBoleto()
@@ -17,7 +17,7 @@ Due to the nature of the syntax above problem might occur because:
 
 	at br.com.boletos.service.BoletoServiceTest.nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociadoeSituacaoBoleto(BoletoServiceTest.java:67)
 
-consultarBoletosPorUuidAssociado  Time elapsed: 0.01 s  <<< ERROR!
+consultarBoletosPorUuidAssociado  Time elapsed: 0.011 s  <<< ERROR!
 org.mockito.exceptions.misusing.WrongTypeOfReturnValue: 
 
 Optional cannot be returned by findByUuidAssociado()
@@ -32,7 +32,7 @@ Due to the nature of the syntax above problem might occur because:
 
 	at br.com.boletos.service.BoletoServiceTest.consultarBoletosPorUuidAssociado(BoletoServiceTest.java:37)
 
-nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociado  Time elapsed: 0.003 s  <<< ERROR!
+nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociado  Time elapsed: 0.002 s  <<< ERROR!
 org.mockito.exceptions.misusing.WrongTypeOfReturnValue: 
 
 Optional cannot be returned by findByUuidAssociado()

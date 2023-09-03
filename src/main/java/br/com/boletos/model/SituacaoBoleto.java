@@ -3,7 +3,8 @@ package br.com.boletos.model;
 public enum SituacaoBoleto {
     
     EM_ABERTO("Em Aberto"),
-    PAGO("Pago");
+    PAGO("Pago"),
+    EM_ATRASO("Em Atraso");
 
     private String descricaoSituacaoBoleto;
 
