@@ -1,1 +1,4 @@
+br/com/boletos/model/BoletoDTO$BoletoDTOBuilder.class
+br/com/boletos/controller/BoletoController.class
+br/com/boletos/model/BoletoDTO.class
 br/com/boletos/config/SwaggerConfig.class
