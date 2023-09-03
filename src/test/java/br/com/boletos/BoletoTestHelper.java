@@ -1,9 +1,8 @@
 package br.com.boletos;
 
 import br.com.boletos.model.Boleto;
-import br.com.boletos.model.BoletoDTO;
+import br.com.boletos.v1.dto.BoletoDTO;
 import br.com.boletos.model.SituacaoBoleto;
-import org.hibernate.bytecode.internal.bytebuddy.BytecodeProviderImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

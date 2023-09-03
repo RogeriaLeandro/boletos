@@ -1,19 +1,14 @@
 package br.com.boletos.service;
 
 import br.com.boletos.integracao.associado.service.AssociadoService;
-import br.com.boletos.model.Boleto;
-import br.com.boletos.model.SituacaoBoleto;
 import br.com.boletos.repositories.BoletoRepository;
-import br.com.boletos.services.BoletoService;
+import br.com.boletos.v1.service.BoletoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
