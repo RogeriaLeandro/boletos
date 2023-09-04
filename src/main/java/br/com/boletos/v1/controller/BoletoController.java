@@ -25,7 +25,7 @@ import javax.validation.constraints.Min;
 @Tag(name = "boleto-controller", description = "API de Operações básicas sobre os Boletos")
 @Validated
 @RestController
-@RequestMapping(value = "/boleto")
+@RequestMapping(value = "/v1/boletos")
 public class BoletoController {
 
     @Autowired

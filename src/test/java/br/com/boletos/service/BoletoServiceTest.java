@@ -76,7 +76,7 @@ public class BoletoServiceTest {
         verifyNoInteractions(associadoService);
     }
 
-
+    @Test
     void deveEfetuarPagamento() {
         var boleto = criarBoletos().get(0);
         boleto.setUuidAssociado(UUID.fromString(ID_ASSOCIADO));
@@ -89,5 +89,19 @@ public class BoletoServiceTest {
         //verify(boletoRepository).save(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
         //verifyNoInteractions(associadoService);
     }
+
+//    @Test
+//    void deveEfetuarPagamento() {
+//        var boleto = criarBoletos().get(0);
+//        boleto.setUuidAssociado(UUID.fromString(ID_ASSOCIADO));
+//        boleto.setSituacao(EM_ABERTO);
+//        boleto.setVencimento(LocalDate.now());
+//        var valor = new BigDecimal("500.00");
+//        var boletoDTO = Optional.of(criarBoletoDTO(boleto));
+//        doReturn(Optional.of(boleto)).when(target).efetuaPagamento(CPF, 10000, new BigDecimal("500.00"));
+//        assertTrue(boleto.getSituacao().equals(PAGO));
+//        //verify(boletoRepository).save(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
+//        //verifyNoInteractions(associadoService);
+//    }
 
 }
