@@ -3,6 +3,9 @@ package br.com.boletos.v1.service;
 import br.com.boletos.exceptions.BoletoPagoException;
 import br.com.boletos.exceptions.DataVencimentoAposDataAtualException;
 import br.com.boletos.exceptions.ValorDeBoletoDivergenteNoPagamentoException;
+import br.com.boletos.exceptions.AssociadoNaoExisteNaAPIException;
+import br.com.boletos.integracao.associado.client.AssociadoClient;
+import br.com.boletos.integracao.associado.service.AssociadoService;
 import br.com.boletos.model.Boleto;
 import br.com.boletos.model.SituacaoBoleto;
 import br.com.boletos.v1.dto.BoletoDTO;
@@ -13,12 +16,16 @@ import org.springframework.beans.factory.annotation.Value;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class BoletoService {
 
     @Autowired
     private BoletoRepository boletoRepository;
+
+    @Autowired
+    private AssociadoService associadoService;
 
     @Value("${app.config.qtd-registros-pagina}")
     private int qtdRegistrosPorPagina = 5;
@@ -51,9 +58,18 @@ public class BoletoService {
         Boleto boleto = boletoRepository.findByIdBoletoAndDocumentoPagador(idBoleto, documentoAssociado);
 
         this.validaBoleto(boleto, valor);
+        this.validaAssociado(boleto.getUuidAssociado().toString());
 
         boleto.setSituacao(SituacaoBoleto.PAGO);
         boletoRepository.save(boleto);
+    }
+
+    private void validaAssociado(String uuid) {
+
+        if(!associadoService.associadoECadastrado(uuid)){
+            throw new AssociadoNaoExisteNaAPIException("Associado não cadastrado em Associados.");
+        }
+
     }
 
     private void validaBoleto(Boleto boleto, BigDecimal valor) {
