@@ -1,6 +1,7 @@
 package br.com.boletos.service;
 
 import br.com.boletos.integracao.associado.service.AssociadoService;
+import br.com.boletos.model.SituacaoBoleto;
 import br.com.boletos.repositories.BoletoRepository;
 import br.com.boletos.v1.service.BoletoService;
 import org.junit.jupiter.api.Test;
@@ -9,12 +10,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
 import static br.com.boletos.BoletoTestHelper.*;
+import static br.com.boletos.model.SituacaoBoleto.EM_ABERTO;
 import static br.com.boletos.model.SituacaoBoleto.PAGO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -72,6 +77,17 @@ public class BoletoServiceTest {
     }
 
 
-
+    void deveEfetuarPagamento() {
+        var boleto = criarBoletos().get(0);
+        boleto.setUuidAssociado(UUID.fromString(ID_ASSOCIADO));
+        boleto.setSituacao(EM_ABERTO);
+        boleto.setVencimento(LocalDate.now());
+        var valor = new BigDecimal("500.00");
+        var boletoDTO = Optional.of(criarBoletoDTO(boleto));
+        doReturn(Optional.of(boleto)).when(target).efetuaPagamento(CPF, 10000, new BigDecimal("500.00"));
+        assertTrue(boleto.getSituacao().equals(PAGO));
+        //verify(boletoRepository).save(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
+        //verifyNoInteractions(associadoService);
+    }
 
 }
