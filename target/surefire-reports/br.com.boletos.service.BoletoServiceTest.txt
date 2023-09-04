@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: br.com.boletos.service.BoletoServiceTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.493 s <<< FAILURE! - in br.com.boletos.service.BoletoServiceTest
-nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociadoeSituacaoBoleto  Time elapsed: 0.46 s  <<< ERROR!
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.593 s <<< FAILURE! - in br.com.boletos.service.BoletoServiceTest
+nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociadoeSituacaoBoleto  Time elapsed: 0.542 s  <<< ERROR!
 org.mockito.exceptions.misusing.WrongTypeOfReturnValue: 
 
 Optional cannot be returned by findByUuidAssociadoAndSituacaoBoleto()
@@ -17,7 +17,7 @@ Due to the nature of the syntax above problem might occur because:
 
 	at br.com.boletos.service.BoletoServiceTest.nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociadoeSituacaoBoleto(BoletoServiceTest.java:72)
 
-consultarBoletosPorUuidAssociado  Time elapsed: 0.011 s  <<< ERROR!
+consultarBoletosPorUuidAssociado  Time elapsed: 0.018 s  <<< ERROR!
 org.mockito.exceptions.misusing.WrongTypeOfReturnValue: 
 
 Optional cannot be returned by findByUuidAssociado()
@@ -32,7 +32,7 @@ Due to the nature of the syntax above problem might occur because:
 
 	at br.com.boletos.service.BoletoServiceTest.consultarBoletosPorUuidAssociado(BoletoServiceTest.java:42)
 
-nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociado  Time elapsed: 0.002 s  <<< ERROR!
+nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociado  Time elapsed: 0.005 s  <<< ERROR!
 org.mockito.exceptions.misusing.WrongTypeOfReturnValue: 
 
 Optional cannot be returned by findByUuidAssociado()
@@ -47,7 +47,7 @@ Due to the nature of the syntax above problem might occur because:
 
 	at br.com.boletos.service.BoletoServiceTest.nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociado(BoletoServiceTest.java:51)
 
-deveEfetuarPagamento  Time elapsed: 0.003 s  <<< ERROR!
+deveEfetuarPagamento  Time elapsed: 0.007 s  <<< ERROR!
 org.mockito.exceptions.misusing.NotAMockException: 
 
 Argument passed to when() is not a mock!

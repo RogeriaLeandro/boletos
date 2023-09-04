@@ -65,7 +65,7 @@ public class BoletoTestHelper {
                 .nome(boleto.getNomePagador())
                 .documento(boleto.getDocumentoPagador())
                 .nomeFantasia(boleto.getNomeFantasiaPagador())
-                .situacaoBoleto(boleto.getSituacao())
+                .situacaoBoleto(boleto.getSituacaoBoleto())
                 .build();
     }
 

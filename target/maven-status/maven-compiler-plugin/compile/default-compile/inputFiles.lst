@@ -13,7 +13,6 @@
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/integracao/associado/dto/AssociadoDTO.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/integracao/associado/client/AssociadoClient.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/v1/controller/BoletoController.java
-/home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/model/BoletoIdUnico.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/exceptions/DataVencimentoAposDataAtualException.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/exceptions/AssociadoNaoExisteNaAPIException.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/BoletosApplication.java

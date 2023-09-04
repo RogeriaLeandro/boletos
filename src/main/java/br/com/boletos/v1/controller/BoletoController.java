@@ -28,7 +28,7 @@ import javax.validation.constraints.Min;
 @RequestMapping(value = "/v1/boletos")
 public class BoletoController {
 
-    @Autowired
+    @Autowired(required = true)
     private BoletoService boletoService;
 
     private static Logger logger = LoggerFactory.getLogger(BoletoController.class);

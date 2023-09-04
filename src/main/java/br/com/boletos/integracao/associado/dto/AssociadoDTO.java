@@ -12,7 +12,7 @@ public class AssociadoDTO {
 
     @Schema(description = "Identificador único do associado", example = "afffaf58-62a9-4808-98c7-e5d1a7d4b1c2")
     @NotBlank
-    private String id;
+    private String uuidAssociado;
 
     @Schema(description = "Documento do associado. CPF ou CNPJ", example = "123.456.789-43")
     @NotBlank

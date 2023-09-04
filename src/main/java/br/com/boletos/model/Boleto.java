@@ -11,9 +11,10 @@ import lombok.*;
 @Entity
 @Table(name = "boleto")
 @Data
-@Embeddable
-@AllArgsConstructor
+//@Getter
+//@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Boleto {
     
    	@Id
@@ -21,9 +22,9 @@ public class Boleto {
     @Column(name = "idBoleto", updatable = false, unique = true, nullable = false)
 	private Integer idBoleto;
 
-    @Id
     @Column(name = "uuidAssociado", nullable = false, columnDefinition = "varchar(36)")
-    private UUID UuidAssociado;
+    private UUID uuidAssociado;
+
 
     @Column(name = "valor", nullable = false, precision = 12, scale = 2)
     private BigDecimal valor;
@@ -42,6 +43,6 @@ public class Boleto {
 
     @Column(name = "situacao", nullable = false)
     @Enumerated(EnumType.STRING)
-    private SituacaoBoleto situacao;
+    private SituacaoBoleto situacaoBoleto;
 
 }

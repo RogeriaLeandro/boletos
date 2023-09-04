@@ -12,6 +12,7 @@ import br.com.boletos.v1.dto.BoletoDTO;
 import br.com.boletos.repositories.BoletoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Service
 public class BoletoService {
 
     @Autowired
@@ -50,7 +52,7 @@ public class BoletoService {
                 .nome(boleto.getNomePagador())
                 .documento(boleto.getDocumentoPagador())
                 .nomeFantasia(boleto.getNomeFantasiaPagador())
-                .situacaoBoleto(boleto.getSituacao())
+                .situacaoBoleto(boleto.getSituacaoBoleto())
                 .build();
     }
 
@@ -60,7 +62,7 @@ public class BoletoService {
         this.validaBoleto(boleto, valor);
         this.validaAssociado(boleto.getUuidAssociado().toString());
 
-        boleto.setSituacao(SituacaoBoleto.PAGO);
+        boleto.setSituacaoBoleto(SituacaoBoleto.PAGO);
         boletoRepository.save(boleto);
     }
 
@@ -78,7 +80,7 @@ public class BoletoService {
             throw new ValorDeBoletoDivergenteNoPagamentoException("Não é possível efetuar pagamento pois os valores são divergentes.");
         }
 
-        if (boleto.getSituacao().equals(SituacaoBoleto.PAGO)) {
+        if (boleto.getSituacaoBoleto().equals(SituacaoBoleto.PAGO)) {
             throw new BoletoPagoException("Não é possível efetuar pagamento de um boleto já pago.");
         }
 
