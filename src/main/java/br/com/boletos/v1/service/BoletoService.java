@@ -1,6 +1,7 @@
 package br.com.boletos.v1.service;
 
 import br.com.boletos.exceptions.BoletoPagoException;
+import br.com.boletos.exceptions.DataVencimentoAposDataAtualException;
 import br.com.boletos.exceptions.ValorDeBoletoDivergenteNoPagamentoException;
 import br.com.boletos.model.Boleto;
 import br.com.boletos.model.SituacaoBoleto;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +50,14 @@ public class BoletoService {
     public void efetuaPagamento(String documentoAssociado, Integer idBoleto, BigDecimal valor) {
         Boleto boleto = boletoRepository.findByIdBoletoAndDocumentoPagador(idBoleto, documentoAssociado);
 
+        this.validaBoleto(boleto, valor);
+
+        boleto.setSituacao(SituacaoBoleto.PAGO);
+        boletoRepository.save(boleto);
+    }
+
+    private void validaBoleto(Boleto boleto, BigDecimal valor) {
+
         if (valor != boleto.getValor()) {
             throw new ValorDeBoletoDivergenteNoPagamentoException("Não é possível efetuar pagamento pois os valores são divergentes.");
         }
@@ -55,6 +65,9 @@ public class BoletoService {
         if (boleto.getSituacao().equals(SituacaoBoleto.PAGO)) {
             throw new BoletoPagoException("Não é possível efetuar pagamento de um boleto já pago.");
         }
-        boleto.setSituacao(SituacaoBoleto.PAGO);
+
+        if (boleto.getVencimento().isAfter(LocalDate.now())) {
+            throw new DataVencimentoAposDataAtualException("Não é possível efetuar pagamento pois a Data de Vencimento Expirou.");
+        }
     }
 }
