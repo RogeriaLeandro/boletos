@@ -54,16 +54,16 @@ public class BoletoService {
     }
 
     public void efetuaPagamento(String documentoAssociado, String idBoleto, BigDecimal valor) {
-        Boleto boleto = boletoRepository.findByIdBoletoAndDocumentoPagador(idBoleto, documentoAssociado);
+        Optional<Boleto> boleto = boletoRepository.findByIdBoletoAndDocumentoPagador(idBoleto, documentoAssociado);
 
         this.validaBoleto(boleto, valor);
-        this.validaAssociado(boleto.getUuidAssociado().toString());
+        this.validaAssociado(boleto.get().getUuidAssociado().toString());
 
-        boleto.setSituacao(SituacaoBoleto.PAGO);
-        boletoRepository.save(boleto);
+        boleto.get().setSituacao(SituacaoBoleto.PAGO);
+        boletoRepository.save(boleto.get());
     }
 
-    public void validaAssociado(String uuid) {
+    private void validaAssociado(String uuid) {
 
         if(!associadoService.associadoECadastrado(uuid)){
             throw new AssociadoNaoExisteNaAPIException("Associado não cadastrado em Associados.");
@@ -71,17 +71,17 @@ public class BoletoService {
 
     }
 
-    public void validaBoleto(Boleto boleto, BigDecimal valor) {
+    private void validaBoleto(Optional<Boleto> boleto, BigDecimal valor) {
 
-        if (valor != boleto.getValor()) {
+        if (valor != boleto.get().getValor()) {
             throw new ValorDeBoletoDivergenteNoPagamentoException("Não é possível efetuar pagamento pois os valores são divergentes.");
         }
 
-        if (boleto.getSituacao().equals(SituacaoBoleto.PAGO)) {
+        if (boleto.get().getSituacao().equals(SituacaoBoleto.PAGO)) {
             throw new BoletoPagoException("Não é possível efetuar pagamento de um boleto já pago.");
         }
 
-        if (boleto.getVencimento().isBefore(LocalDate.now())) {
+        if (boleto.get().getVencimento().isBefore(LocalDate.now())) {
             throw new DataVencimentoAntesDataAtualException("Não é possível efetuar pagamento pois a Data de Vencimento Expirou.");
         }
     }

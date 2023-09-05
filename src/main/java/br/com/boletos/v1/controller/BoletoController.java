@@ -77,6 +77,4 @@ public class BoletoController {
 		return ResponseEntity.noContent().build();
 	}
 
-
-    
 }
