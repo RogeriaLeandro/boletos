@@ -9,9 +9,9 @@ import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
-public interface BoletoRepository extends JpaRepository<Boleto, Long> {
-    List<Boleto> findByUuidAssociado(String uuid);
-    List<Boleto> findByUuidAssociadoAndSituacaoBoleto(String uuid, String situacaoBoleto);
-    Boleto findByIdBoletoAndDocumentoPagador(Integer idBoleto, String documentoPagador);
+public interface BoletoRepository extends JpaRepository<Boleto, Integer> {
+    Optional<Boleto> findByUuidAssociado(String uuid);
+    Optional<Boleto> findByUuidAssociadoAndSituacaoBoleto(String uuid, String situacaoBoleto);
+    Optional<Boleto> findByIdBoletoAndDocumentoPagador(String idBoleto, String documentoPagador);
     
 }

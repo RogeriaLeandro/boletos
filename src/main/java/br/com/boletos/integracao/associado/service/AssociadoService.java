@@ -12,9 +12,9 @@ public class AssociadoService {
     public boolean associadoECadastrado(String idAssociado) {
         var associado = associadoClient.consultarAssociado(idAssociado);
 
-        if(associado != null){
-            return true;
+        if(associado == null){
+            return false;
         }
-        return false;
+        return true;
     }
 }

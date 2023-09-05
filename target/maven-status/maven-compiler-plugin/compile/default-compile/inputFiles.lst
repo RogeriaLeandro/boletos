@@ -1,7 +1,6 @@
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/exceptions/ValorDeBoletoDivergenteNoPagamentoException.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/model/Boleto.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/v1/service/BoletoService.java
-/home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/config/SecurityConfig.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/exceptions/BoletoPagoException.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/config/SwaggerConfig.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/repositories/BoletoRepository.java
@@ -12,8 +11,7 @@
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/utils/PopuladorH2.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/integracao/associado/dto/AssociadoDTO.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/integracao/associado/client/AssociadoClient.java
+/home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/exceptions/DataVencimentoAntesDataAtualException.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/v1/controller/BoletoController.java
-/home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/model/BoletoIdUnico.java
-/home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/exceptions/DataVencimentoAposDataAtualException.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/exceptions/AssociadoNaoExisteNaAPIException.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/BoletosApplication.java
