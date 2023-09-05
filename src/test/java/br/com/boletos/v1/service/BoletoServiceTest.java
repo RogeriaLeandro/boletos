@@ -149,7 +149,7 @@ public class BoletoServiceTest {
     void deveValidarSeVencimentoBoletoAntesDataAtual() {
         var boleto = criarBoletos().get(0);
         boleto.setVencimento(LocalDate.of(2023,07,03));
-        boleto.setSituacao(PAGO);
+        boleto.setSituacao(EM_ABERTO);
         doReturn(boleto).when(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
         doReturn(true).when(associadoService).associadoECadastrado(ID_ASSOCIADO);
         var exception = assertThrows(DataVencimentoAntesDataAtualException.class, () -> target.validaBoleto(boleto, boleto.getValor()));
