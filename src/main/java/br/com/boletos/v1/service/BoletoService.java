@@ -1,7 +1,7 @@
 package br.com.boletos.v1.service;
 
 import br.com.boletos.exceptions.BoletoPagoException;
-import br.com.boletos.exceptions.DataVencimentoAposDataAtualException;
+import br.com.boletos.exceptions.DataVencimentoAntesDataAtualException;
 import br.com.boletos.exceptions.ValorDeBoletoDivergenteNoPagamentoException;
 import br.com.boletos.exceptions.AssociadoNaoExisteNaAPIException;
 import br.com.boletos.integracao.associado.client.AssociadoClient;
@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Value;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -30,20 +32,17 @@ public class BoletoService {
     @Value("${app.config.qtd-registros-pagina}")
     private int qtdRegistrosPorPagina = 5;
 
-    public List<BoletoDTO> consultarBoletosPorUuid(String uuid) {
-        return boletoRepository.findByUuidAssociado(uuid)
-                .stream()
-                .map(this::toDTO).collect(Collectors.toList());
+    public Optional<BoletoDTO> consultarBoletoPorUuid(String uuid) {
+        return boletoRepository.findByUuidAssociado(uuid).map(this::toDTO);
+
     }
 
-    public List<BoletoDTO> consultarBoletosPorUuidEPorSituacao(String uuid, String situacaoBoleto) {
-        return boletoRepository.findByUuidAssociadoAndSituacaoBoleto(uuid, situacaoBoleto)
-                .stream()
-                .map(this::toDTO).collect(Collectors.toList());
+    public Optional<BoletoDTO> consultarBoletoPorUuidEPorSituacao(String uuid, String situacaoBoleto) {
+        return boletoRepository.findByUuidAssociadoAndSituacaoBoleto(uuid, situacaoBoleto).map(this::toDTO);
     }
     private BoletoDTO toDTO(Boleto boleto) {
         return BoletoDTO.builder()
-                .idBoleto(boleto.getIdBoleto().toString())
+                .idBoleto(boleto.getId().toString())
                 .valor(boleto.getValor())
                 .vencimento(boleto.getVencimento())
                 .uuidAssociado(boleto.getUuidAssociado().toString())
@@ -54,7 +53,7 @@ public class BoletoService {
                 .build();
     }
 
-    public void efetuaPagamento(String documentoAssociado, Integer idBoleto, BigDecimal valor) {
+    public void efetuaPagamento(String documentoAssociado, String idBoleto, BigDecimal valor) {
         Boleto boleto = boletoRepository.findByIdBoletoAndDocumentoPagador(idBoleto, documentoAssociado);
 
         this.validaBoleto(boleto, valor);
@@ -64,7 +63,7 @@ public class BoletoService {
         boletoRepository.save(boleto);
     }
 
-    private void validaAssociado(String uuid) {
+    public void validaAssociado(String uuid) {
 
         if(!associadoService.associadoECadastrado(uuid)){
             throw new AssociadoNaoExisteNaAPIException("Associado não cadastrado em Associados.");
@@ -72,7 +71,7 @@ public class BoletoService {
 
     }
 
-    private void validaBoleto(Boleto boleto, BigDecimal valor) {
+    public void validaBoleto(Boleto boleto, BigDecimal valor) {
 
         if (valor != boleto.getValor()) {
             throw new ValorDeBoletoDivergenteNoPagamentoException("Não é possível efetuar pagamento pois os valores são divergentes.");
@@ -82,8 +81,8 @@ public class BoletoService {
             throw new BoletoPagoException("Não é possível efetuar pagamento de um boleto já pago.");
         }
 
-        if (boleto.getVencimento().isAfter(LocalDate.now())) {
-            throw new DataVencimentoAposDataAtualException("Não é possível efetuar pagamento pois a Data de Vencimento Expirou.");
+        if (boleto.getVencimento().isBefore(LocalDate.now())) {
+            throw new DataVencimentoAntesDataAtualException("Não é possível efetuar pagamento pois a Data de Vencimento Expirou.");
         }
     }
 }

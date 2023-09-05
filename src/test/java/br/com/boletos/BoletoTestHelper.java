@@ -20,6 +20,7 @@ public class BoletoTestHelper {
     public static final String CPF_NAO_FORMATADO = "12312312343";
     public static final String CNPJ_NAO_FORMATADO = "91957952000153";
     public static final String ID_ASSOCIADO = "32ce9e27-926a-458a-9a1e-c822d164c167";
+    public static final String ID_BOLETO = "10";
 
     public static List<BoletoDTO> criarBoletosDTO() {
         return List.of(
@@ -33,10 +34,10 @@ public class BoletoTestHelper {
 
     private static Boleto criarBoleto(SituacaoBoleto situacaoBoleto) {
         var boleto = new Boleto();
-        boleto.setIdBoleto(10000);
+        boleto.setId(10000);
         boleto.setValor(new BigDecimal(500.00));
         boleto.setVencimento(LocalDate.now());
-        boleto.setUuidAssociado(UUID.fromString(ID_ASSOCIADO));
+        boleto.setUuidAssociado(ID_ASSOCIADO);
         boleto.setDocumentoPagador(CPF);
         boleto.setNomePagador("Nome");
         boleto.setNomeFantasiaPagador("NomeFantasia");
@@ -58,7 +59,7 @@ public class BoletoTestHelper {
 
     public static BoletoDTO criarBoletoDTO(Boleto boleto) {
         return BoletoDTO.builder()
-                .idBoleto(boleto.getIdBoleto().toString())
+                .idBoleto(boleto.getId().toString())
                 .valor(boleto.getValor())
                 .vencimento(boleto.getVencimento())
                 .uuidAssociado(boleto.getUuidAssociado().toString())

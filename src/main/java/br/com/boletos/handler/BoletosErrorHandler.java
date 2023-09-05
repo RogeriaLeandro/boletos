@@ -2,7 +2,7 @@ package br.com.boletos.handler;
 
 import br.com.boletos.exceptions.AssociadoNaoExisteNaAPIException;
 import br.com.boletos.exceptions.BoletoPagoException;
-import br.com.boletos.exceptions.DataVencimentoAposDataAtualException;
+import br.com.boletos.exceptions.DataVencimentoAntesDataAtualException;
 import br.com.boletos.exceptions.ValorDeBoletoDivergenteNoPagamentoException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ public class BoletosErrorHandler {
 
 
     @ExceptionHandler(value = {BoletoPagoException.class,
-                                DataVencimentoAposDataAtualException.class,
+                                DataVencimentoAntesDataAtualException.class,
                                 ValorDeBoletoDivergenteNoPagamentoException.class,
                                 AssociadoNaoExisteNaAPIException.class})
     public ResponseEntity<Object> catchBoleto(RuntimeException ex, WebRequest request) {

@@ -1,29 +1,31 @@
 package br.com.boletos.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import javax.persistence.*;
-
-import lombok.*;
 
 @Entity
 @Table(name = "boleto")
 @Data
-@Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Boleto {
     
    	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idBoleto", updatable = false, unique = true, nullable = false)
-	private Integer idBoleto;
+    @Column(name = "id", updatable = false, unique = true, nullable = false)
+	private Integer id;
 
     @Id
     @Column(name = "uuidAssociado", nullable = false, columnDefinition = "varchar(36)")
-    private UUID UuidAssociado;
+    private String UuidAssociado;
 
     @Column(name = "valor", nullable = false, precision = 12, scale = 2)
     private BigDecimal valor;

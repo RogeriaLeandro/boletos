@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoletoRepository extends JpaRepository<Boleto, Long> {
-    List<Boleto> findByUuidAssociado(String uuid);
-    List<Boleto> findByUuidAssociadoAndSituacaoBoleto(String uuid, String situacaoBoleto);
-    Boleto findByIdBoletoAndDocumentoPagador(Integer idBoleto, String documentoPagador);
+    Optional<Boleto> findByUuidAssociado(String uuid);
+    Optional<Boleto> findByUuidAssociadoAndSituacaoBoleto(String uuid, String situacaoBoleto);
+    Boleto findByIdBoletoAndDocumentoPagador(String idBoleto, String documentoPagador);
     
 }
