@@ -1,5 +1,6 @@
 package br.com.boletos.rabbitmq.consumer;
 
+import br.com.boletos.exceptions.DocumentoInvalidoException;
 import br.com.boletos.integracao.associado.service.AssociadoService;
 import br.com.boletos.model.BoletoPagamentoDTO;
 import br.com.boletos.repositories.BoletoRepository;
@@ -40,9 +41,9 @@ public class ListenerMensagemPagamento {
 
             BoletoPagamentoDTO boletoPagamentoDTO = mapper.readValue(json, BoletoPagamentoDTO.class);
 
-            String documento = trataDocumento(boletoPagamentoDTO.getDocumentoPagador());
-            String idBoleto = trataIdBoleto(boletoPagamentoDTO.getId());
-            String valor = trataValor(boletoPagamentoDTO.getValor());
+            String documento = trataDocumento(boletoPagamentoDTO.getDocumentoAssociado());
+            String idBoleto = trataIdBoleto(boletoPagamentoDTO.getIdBoleto());
+            String valor = trataValor(boletoPagamentoDTO.getValorBoleto());
 
             boletoService.efetuaPagamento(documento, idBoleto, new BigDecimal(valor));
 
@@ -83,6 +84,7 @@ public class ListenerMensagemPagamento {
                 return documentoPagador;
             }
         } catch (Exception e) {
+
             return documentoPagador;
         }
 
@@ -102,7 +104,7 @@ public class ListenerMensagemPagamento {
                 return true;
             } catch (Exception e) {
                 logger.error("CPF Inválido");
-                return false;
+                throw new DocumentoInvalidoException("CPF Inválido");
             }
         } else {
             CNPJValidator cnpjValidator = new CNPJValidator();
@@ -111,7 +113,7 @@ public class ListenerMensagemPagamento {
                 return true;
             } catch (Exception e) {
                 logger.error("CNPJ Inválido");
-                return false;
+                throw new DocumentoInvalidoException("CPF Inválido");
             }
         }
     }
