@@ -25,9 +25,5 @@ b
 .src/main/java/br/com/boletos/model/Boleto.java,c/e/ce419f4b720b7ec923687488de7c0906e20e4f54
 w
 Gsrc/main/java/br/com/boletos/exceptions/DocumentoInvalidoException.java,0/e/0ea0ba0dcab46a12ed6000825fc8d2dd739b5dba
-}
-Msrc/main/java/br/com/boletos/integracao/associado/client/AssociadoClient.java,5/8/58004054510d221a32e91d2be30a35cc417e2058
-c
-3src/main/java/br/com/boletos/utils/PopuladorH2.java,1/a/1a7aabbd9e28f1267c35f74d71fc1e40dfd2daa9
 
 Osrc/main/java/br/com/boletos/integracao/associado/service/AssociadoService.java,3/0/301e4086874134f2eea579f60e0da9abff0a585a
