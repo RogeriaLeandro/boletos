@@ -2,8 +2,9 @@ package br.com.boletos.integracao.associado.service;
 
 import br.com.boletos.integracao.associado.client.AssociadoClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AssociadoService {
 
     @Autowired

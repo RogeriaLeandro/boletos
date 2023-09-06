@@ -44,45 +44,45 @@ public class BoletoServiceTest {
     @Test
     void consultarBoletosPorUuidAssociado() {
         var boleto = criarBoletos().get(1);
-        boleto.setUuidAssociado(ID_ASSOCIADO);
+        boleto.setUuid(ID_ASSOCIADO);
 
         var boletoDTO = Optional.of(criarBoletoDTO(boleto));
 
-        doReturn(Optional.of(boleto)).when(boletoRepository).findByUuidAssociado(ID_ASSOCIADO);
+        doReturn(Optional.of(boleto)).when(boletoRepository).findByUuid(ID_ASSOCIADO);
         var actual = target.consultarBoletoPorUuid(ID_ASSOCIADO);
         assertEquals(boletoDTO, actual);
-        verify(boletoRepository).findByUuidAssociado(ID_ASSOCIADO);
+        verify(boletoRepository).findByUuid(ID_ASSOCIADO);
         verifyNoInteractions(associadoService);
     }
 
     @Test
     void nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociado() {
-        doReturn(Optional.empty()).when(boletoRepository).findByUuidAssociado(ID_ASSOCIADO);
+        doReturn(Optional.empty()).when(boletoRepository).findByUuid(ID_ASSOCIADO);
         var actual = target.consultarBoletoPorUuid(ID_ASSOCIADO);
         assertEquals(Optional.empty(), actual);
-        verify(boletoRepository).findByUuidAssociado(ID_ASSOCIADO);
+        verify(boletoRepository).findByUuid(ID_ASSOCIADO);
         verifyNoInteractions(associadoService);
     }
 
     @Test
     void consultarBoletosPorUuidAssociadoESituacaoBoleto() {
         var boleto = criarBoletos().get(0);
-        boleto.setUuidAssociado(ID_ASSOCIADO);
+        boleto.setUuid(ID_ASSOCIADO);
         boleto.setSituacao(PAGO);
         var boletoDTO = Optional.of(criarBoletoDTO(boleto));
-        doReturn(Optional.of(boleto)).when(boletoRepository).findByUuidAssociadoAndSituacaoBoleto(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
+        doReturn(Optional.of(boleto)).when(boletoRepository).findByUuidAndSituacao(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
         var actual = target.consultarBoletoPorUuidEPorSituacao(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
         assertEquals(boletoDTO, actual);
-        verify(boletoRepository).findByUuidAssociadoAndSituacaoBoleto(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
+        verify(boletoRepository).findByUuidAndSituacao(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
         verifyNoInteractions(associadoService);
     }
 
     @Test
     void nenhumBoletoEncontradoAoConsultarBoletosPorUuidAssociadoeSituacaoBoleto() {
-        doReturn(Optional.empty()).when(boletoRepository).findByUuidAssociadoAndSituacaoBoleto(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
+        doReturn(Optional.empty()).when(boletoRepository).findByUuidAndSituacao(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
         var actual = target.consultarBoletoPorUuidEPorSituacao(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
         assertEquals(Optional.empty(), actual);
-        verify(boletoRepository).findByUuidAssociadoAndSituacaoBoleto(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
+        verify(boletoRepository).findByUuidAndSituacao(ID_ASSOCIADO, PAGO.getDescricaoSituacaoBoleto());
         verifyNoInteractions(associadoService);
     }
 
@@ -90,14 +90,14 @@ public class BoletoServiceTest {
     void deveEfetuarPagamento() {
         var boleto = criarBoletos().get(0);
         boleto.setSituacao(EM_ABERTO);
-        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
         doReturn(boleto).when(boletoRepository).save(boleto);
-        doReturn(true).when(associadoService).associadoECadastrado(boleto.getUuidAssociado());
+        doReturn(true).when(associadoService).associadoECadastrado(boleto.getUuid());
         target.efetuaPagamento(boleto.getDocumentoPagador(), boleto.getId().toString(), boleto.getValor());
         assertEquals(boleto.getSituacao(), PAGO);
-        verify(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        verify(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
         verify(boletoRepository).save(boleto);
-        verify(associadoService).associadoECadastrado(boleto.getUuidAssociado());
+        verify(associadoService).associadoECadastrado(boleto.getUuid());
 
     }
 
@@ -106,15 +106,15 @@ public class BoletoServiceTest {
     void deveValidarAssociado() {
         var boleto = criarBoletos().get(0);
         boleto.setSituacao(EM_ABERTO);
-        boleto.setUuidAssociado("111");
-        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
-        doReturn(false).when(associadoService).associadoECadastrado(boleto.getUuidAssociado());
+        boleto.setUuid("111");
+        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        doReturn(false).when(associadoService).associadoECadastrado(boleto.getUuid());
         var exception = assertThrows(AssociadoNaoExisteNaAPIException.class, () -> target.efetuaPagamento(boleto.getDocumentoPagador(),
                                                                                                         boleto.getId().toString(),
                                                                                                         boleto.getValor()));
         assertEquals("Associado não cadastrado em Associados.", exception.getMessage());
-        verify(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
-        verify(associadoService).associadoECadastrado(boleto.getUuidAssociado());
+        verify(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        verify(associadoService).associadoECadastrado(boleto.getUuid());
         verifyNoMoreInteractions(boletoRepository);
     }
 
@@ -122,12 +122,12 @@ public class BoletoServiceTest {
     void deveValidarSeValorBoletoEDivergente() {
         var boleto = criarBoletos().get(0);
         var valor = new BigDecimal("1.00");
-        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
         var exception = assertThrows(ValorDeBoletoDivergenteNoPagamentoException.class, () -> target.efetuaPagamento(boleto.getDocumentoPagador(),
                                                                                                                     boleto.getId().toString(),
                                                                                                                     valor));
         assertEquals("Não é possível efetuar pagamento pois os valores são divergentes.", exception.getMessage());
-        verify(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        verify(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
         verifyNoInteractions(associadoService);
         verifyNoMoreInteractions(boletoRepository);
     }
@@ -136,13 +136,13 @@ public class BoletoServiceTest {
     void deveValidarSeBoletoJaFoiPago() {
         var boleto  = criarBoletos().get(0);
         boleto.setSituacao(PAGO);
-        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
         var exception = assertThrows(BoletoPagoException.class, () -> target.efetuaPagamento(boleto.getDocumentoPagador(),
                                                                                                                 boleto.getId().toString(),
                                                                                                                 boleto.getValor()));
 
         assertEquals("Não é possível efetuar pagamento de um boleto já pago.", exception.getMessage());
-        verify(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        verify(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
         verifyNoMoreInteractions(boletoRepository);
         verifyNoInteractions(associadoService);
     }
@@ -152,13 +152,13 @@ public class BoletoServiceTest {
         var boleto = criarBoletos().get(0);
         boleto.setVencimento(LocalDate.of(2023,07,03));
         boleto.setSituacao(EM_ABERTO);
-        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        doReturn(Optional.of(boleto)).when(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
         var exception = assertThrows(DataVencimentoAntesDataAtualException.class, () -> target.efetuaPagamento(boleto.getDocumentoPagador(),
                                                                                                                 boleto.getId().toString(),
                                                                                                                 boleto.getValor()));
 
         assertEquals("Não é possível efetuar pagamento pois a Data de Vencimento Expirou.", exception.getMessage());
-        verify(boletoRepository).findByIdBoletoAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
+        verify(boletoRepository).findByIdAndDocumentoPagador(boleto.getId().toString(), boleto.getDocumentoPagador());
         verifyNoMoreInteractions(boletoRepository);
         verifyNoInteractions(associadoService);
     }

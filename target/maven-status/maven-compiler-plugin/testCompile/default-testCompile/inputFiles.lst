@@ -1,2 +1,5 @@
 /home/usuario/Documentos/Prova Técnica/boletos/src/test/java/br/com/boletos/BoletoTestHelper.java
-/home/usuario/Documentos/Prova Técnica/boletos/src/test/java/br/com/boletos/service/BoletoServiceTest.java
+/home/usuario/Documentos/Prova Técnica/boletos/src/test/java/br/com/boletos/v1/service/BoletoServiceTest.java
+/home/usuario/Documentos/Prova Técnica/boletos/src/test/java/br/com/boletos/rabbitmq/consumer/ListenerMensagemPagamentoTest.java
+/home/usuario/Documentos/Prova Técnica/boletos/src/test/java/br/com/boletos/integracao/service/AssociadoServiceTest.java
+/home/usuario/Documentos/Prova Técnica/boletos/src/test/java/br/com/boletos/v1/controller/BoletoControllerTest.java

@@ -37,7 +37,7 @@ public class BoletoTestHelper {
         boleto.setId(10000);
         boleto.setValor(new BigDecimal(500.00));
         boleto.setVencimento(LocalDate.now());
-        boleto.setUuidAssociado(ID_ASSOCIADO);
+        boleto.setUuid(ID_ASSOCIADO);
         boleto.setDocumentoPagador(CPF);
         boleto.setNomePagador("Nome");
         boleto.setNomeFantasiaPagador("NomeFantasia");
@@ -62,7 +62,7 @@ public class BoletoTestHelper {
                 .idBoleto(boleto.getId().toString())
                 .valor(boleto.getValor())
                 .vencimento(boleto.getVencimento())
-                .uuidAssociado(boleto.getUuidAssociado().toString())
+                .uuidAssociado(boleto.getUuid().toString())
                 .nome(boleto.getNomePagador())
                 .documento(boleto.getDocumentoPagador())
                 .nomeFantasia(boleto.getNomeFantasiaPagador())

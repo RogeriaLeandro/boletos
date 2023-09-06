@@ -12,6 +12,7 @@ import br.com.boletos.v1.dto.BoletoDTO;
 import br.com.boletos.repositories.BoletoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import java.util.OptionalInt;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Service
 public class BoletoService {
 
     @Autowired
@@ -33,19 +35,19 @@ public class BoletoService {
     private int qtdRegistrosPorPagina = 5;
 
     public Optional<BoletoDTO> consultarBoletoPorUuid(String uuid) {
-        return boletoRepository.findByUuidAssociado(uuid).map(this::toDTO);
+        return boletoRepository.findByUuid(uuid).map(this::toDTO);
 
     }
 
     public Optional<BoletoDTO> consultarBoletoPorUuidEPorSituacao(String uuid, String situacaoBoleto) {
-        return boletoRepository.findByUuidAssociadoAndSituacaoBoleto(uuid, situacaoBoleto).map(this::toDTO);
+        return boletoRepository.findByUuidAndSituacao(uuid, situacaoBoleto).map(this::toDTO);
     }
     private BoletoDTO toDTO(Boleto boleto) {
         return BoletoDTO.builder()
                 .idBoleto(boleto.getId().toString())
                 .valor(boleto.getValor())
                 .vencimento(boleto.getVencimento())
-                .uuidAssociado(boleto.getUuidAssociado().toString())
+                .uuidAssociado(boleto.getUuid().toString())
                 .nome(boleto.getNomePagador())
                 .documento(boleto.getDocumentoPagador())
                 .nomeFantasia(boleto.getNomeFantasiaPagador())
@@ -54,10 +56,10 @@ public class BoletoService {
     }
 
     public void efetuaPagamento(String documentoAssociado, String idBoleto, BigDecimal valor) {
-        Optional<Boleto> boleto = boletoRepository.findByIdBoletoAndDocumentoPagador(idBoleto, documentoAssociado);
+        Optional<Boleto> boleto = boletoRepository.findByIdAndDocumentoPagador(idBoleto, documentoAssociado);
 
         this.validaBoleto(boleto, valor);
-        this.validaAssociado(boleto.get().getUuidAssociado().toString());
+        this.validaAssociado(boleto.get().getUuid().toString());
 
         boleto.get().setSituacao(SituacaoBoleto.PAGO);
         boletoRepository.save(boleto.get());
