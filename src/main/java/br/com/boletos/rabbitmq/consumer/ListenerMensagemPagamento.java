@@ -4,6 +4,8 @@ import br.com.boletos.integracao.associado.service.AssociadoService;
 import br.com.boletos.model.BoletoPagamentoDTO;
 import br.com.boletos.repositories.BoletoRepository;
 import br.com.boletos.v1.service.BoletoService;
+import br.com.caelum.stella.validation.CNPJValidator;
+import br.com.caelum.stella.validation.CPFValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -50,7 +52,7 @@ public class ListenerMensagemPagamento {
         String valorString = valorTratado.toString();
         StringBuffer stringBuffer = new StringBuffer(valorString);
 
-        stringBuffer.insert(valorString.length()-2, ".");
+        stringBuffer.insert(valorString.length() - 2, ".");
         return stringBuffer.toString();
 
     }
@@ -63,8 +65,8 @@ public class ListenerMensagemPagamento {
     public String trataDocumento(String documentoPagador) {
 
         String cpf = documentoPagador.substring(3, 11);
-        boolean cpfEValido = associadoService.documentoEValido(cpf);
-        boolean cnpjEValido = associadoService.documentoEValido(documentoPagador);
+        boolean cpfEValido = this.documentoEValido(cpf);
+        boolean cnpjEValido = this.documentoEValido(documentoPagador);
 
         try {
             if (cpfEValido) {
@@ -80,4 +82,32 @@ public class ListenerMensagemPagamento {
 
         return documentoPagador;
     }
+
+
+    public boolean documentoEValido(String documento) {
+
+        documento = documento.replace("-", "");
+        documento = documento.replace(".", "");
+
+        if (documento.length() == 11) {
+            CPFValidator cpfValidator = new CPFValidator();
+            try {
+                cpfValidator.assertValid(documento);
+                return true;
+            } catch (Exception e) {
+                logger.error("CPF Inválido");
+                return false;
+            }
+        } else {
+            CNPJValidator cnpjValidator = new CNPJValidator();
+            try {
+                cnpjValidator.assertValid(documento);
+                return true;
+            } catch (Exception e) {
+                logger.error("CNPJ Inválido");
+                return false;
+            }
+        }
+    }
+
 }
