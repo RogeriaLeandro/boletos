@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Boleto {
     
    	@Id
@@ -22,9 +21,8 @@ public class Boleto {
     @Column(name = "id", updatable = false, unique = true, nullable = false)
 	private Integer id;
 
-    @Id
-    @Column(name = "uuidAssociado", nullable = false, columnDefinition = "varchar(36)")
-    private String UuidAssociado;
+    @Column(name = "uuid", nullable = false, columnDefinition = "varchar(36)")
+    private String uuid;
 
     @Column(name = "valor", nullable = false, precision = 12, scale = 2)
     private BigDecimal valor;

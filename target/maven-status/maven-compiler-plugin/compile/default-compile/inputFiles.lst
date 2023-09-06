@@ -3,10 +3,13 @@
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/v1/service/BoletoService.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/exceptions/BoletoPagoException.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/config/SwaggerConfig.java
+/home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/exceptions/DocumentoInvalidoException.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/repositories/BoletoRepository.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/handler/BoletosErrorHandler.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/integracao/associado/service/AssociadoService.java
+/home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/rabbitmq/consumer/ListenerMensagemPagamento.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/model/SituacaoBoleto.java
+/home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/model/BoletoPagamentoDTO.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/v1/dto/BoletoDTO.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/utils/PopuladorH2.java
 /home/usuario/Documentos/Prova Técnica/boletos/src/main/java/br/com/boletos/integracao/associado/dto/AssociadoDTO.java
