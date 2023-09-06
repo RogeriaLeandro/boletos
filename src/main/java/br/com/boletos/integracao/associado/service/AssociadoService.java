@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AssociadoService {
 
-    @Autowired
+    @Autowired(required = true)
     private AssociadoClient associadoClient;
 
     public boolean associadoECadastrado(String idAssociado) {
