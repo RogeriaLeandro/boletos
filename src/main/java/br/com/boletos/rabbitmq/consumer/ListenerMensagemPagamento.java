@@ -1,18 +1,20 @@
 package br.com.boletos.rabbitmq.consumer;
 
+import br.com.boletos.integracao.associado.service.AssociadoService;
 import br.com.boletos.model.BoletoPagamentoDTO;
 import br.com.boletos.repositories.BoletoRepository;
 import br.com.boletos.v1.service.BoletoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.Gson.GsonBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 @Service
 public class ListenerMensagemPagamento {
@@ -21,7 +23,12 @@ public class ListenerMensagemPagamento {
     public BoletoService boletoService;
 
     @Autowired
+    public AssociadoService associadoService;
+
+    @Autowired
     public BoletoRepository boletoRepository;
+
+    private static Logger logger = LoggerFactory.getLogger(ListenerMensagemPagamento.class);
 
     @RabbitListener(queues = "queue")
     public void listener(String json) throws JsonProcessingException {
@@ -35,21 +42,42 @@ public class ListenerMensagemPagamento {
 
         boletoService.efetuaPagamento(documento, idBoleto, new BigDecimal(valor));
 
+    }
+
+    public String trataValor(String valor) {
+
+        BigDecimal valorTratado = new BigDecimal(valor);
+        String valorString = valorTratado.toString();
+        StringBuffer stringBuffer = new StringBuffer(valorString);
+
+        stringBuffer.insert(valorString.length()-2, ".");
+        return stringBuffer.toString();
 
     }
 
-    private String trataValor(String valor) {
-        return null;
+    public String trataIdBoleto(String id) {
+
+        return id.trim();
     }
 
-    private String trataIdBoleto(String id) {
-        return null;
-    }
+    public String trataDocumento(String documentoPagador) {
 
-    private String trataDocumento(String documentoPagador) {
-        return null;
+        String cpf = documentoPagador.substring(3, 11);
+        boolean cpfEValido = associadoService.documentoEValido(cpf);
+        boolean cnpjEValido = associadoService.documentoEValido(documentoPagador);
+
+        try {
+            if (cpfEValido) {
+                return cpf;
+            }
+
+            if (cnpjEValido) {
+                return documentoPagador;
+            }
+        } catch (Exception e) {
+            return documentoPagador;
+        }
+
+        return documentoPagador;
     }
 }
-
-//        Integer idBoleto = Integer.parseInt(boletoPagamentoDTO.getId().trim());
-//        boletoRepository.findById(idBoleto);
