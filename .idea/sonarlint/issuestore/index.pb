@@ -15,3 +15,5 @@ w
 Gsrc/main/java/br/com/boletos/exceptions/DocumentoInvalidoException.java,0/e/0ea0ba0dcab46a12ed6000825fc8d2dd739b5dba
 j
 :src/main/java/br/com/boletos/model/BoletoPagamentoDTO.java,6/7/671afa036c7b5fd4b7e842f2a586d07194af330e
+}
+Msrc/main/java/br/com/boletos/integracao/associado/client/AssociadoClient.java,5/8/58004054510d221a32e91d2be30a35cc417e2058

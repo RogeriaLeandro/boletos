@@ -36,13 +36,19 @@ public class ListenerMensagemPagamento {
     public void listener(String json) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
-        BoletoPagamentoDTO boletoPagamentoDTO = mapper.readValue(json, BoletoPagamentoDTO.class);
+        try {
 
-        String documento = trataDocumento(boletoPagamentoDTO.getDocumentoPagador());
-        String idBoleto = trataIdBoleto(boletoPagamentoDTO.getId());
-        String valor = trataValor(boletoPagamentoDTO.getValor());
+            BoletoPagamentoDTO boletoPagamentoDTO = mapper.readValue(json, BoletoPagamentoDTO.class);
 
-        boletoService.efetuaPagamento(documento, idBoleto, new BigDecimal(valor));
+            String documento = trataDocumento(boletoPagamentoDTO.getDocumentoPagador());
+            String idBoleto = trataIdBoleto(boletoPagamentoDTO.getId());
+            String valor = trataValor(boletoPagamentoDTO.getValor());
+
+            boletoService.efetuaPagamento(documento, idBoleto, new BigDecimal(valor));
+
+        } catch (JsonProcessingException e) {
+            logger.error("Json não processado - " + e.getMessage());
+        }
 
     }
 
