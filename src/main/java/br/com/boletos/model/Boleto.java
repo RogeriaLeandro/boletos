@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
 
 
 @Entity
@@ -33,7 +32,7 @@ public class Boleto {
     @Column(name = "vencimento", nullable = false)
     private LocalDate vencimento;
 
-    @Column(name = "documentoPagador", nullable = false, length = 50)
+    @Column(name = "documentoPagador", nullable = false)
     private String documentoPagador;
 
     @Column(name = "nomePagador", nullable = false, length = 50)    
