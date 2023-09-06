@@ -87,4 +87,7 @@ public class BoletoService {
             throw new DataVencimentoAntesDataAtualException("Não é possível efetuar pagamento pois a Data de Vencimento Expirou.");
         }
     }
+
+
+
 }
