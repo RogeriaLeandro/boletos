@@ -13,9 +13,5 @@ f
 6src/main/java/br/com/boletos/model/SituacaoBoleto.java,4/4/44143948ff05659aaa901e1ad2af1db20ae61931
 o
 ?src/main/java/br/com/boletos/repositories/BoletoRepository.java,8/2/82eedb5c0b33ab8f04f5e946dcc8278ee18488f3
-}
-Msrc/main/java/br/com/boletos/integracao/associado/client/AssociadoClient.java,5/8/58004054510d221a32e91d2be30a35cc417e2058
 w
 Gsrc/main/java/br/com/boletos/integracao/associado/dto/AssociadoDTO.java,6/9/697b7d66080ce46e3314bfaaf1c0df56f211f697
-
-Osrc/main/java/br/com/boletos/integracao/associado/service/AssociadoService.java,3/0/301e4086874134f2eea579f60e0da9abff0a585a
