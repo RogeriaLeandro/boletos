@@ -1,14 +1,20 @@
 package br.com.boletos.model;
 
-import lombok.Builder;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoletoPagamentoDTO {
 
-    private String id;
-    private String documentoPagador;
-    private String valor;
+    @JsonProperty("documentoAssociado")
+    private String documentoAssociado;
+
+    @JsonProperty("idBoleto")
+    private String idBoleto;
+
+    @JsonProperty("valorBoleto")
+    private String valorBoleto;
 
 }

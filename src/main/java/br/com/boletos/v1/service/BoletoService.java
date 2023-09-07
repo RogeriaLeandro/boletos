@@ -31,9 +31,6 @@ public class BoletoService {
     @Autowired
     private AssociadoService associadoService;
 
-    @Value("${app.config.qtd-registros-pagina}")
-    private int qtdRegistrosPorPagina = 5;
-
     public Optional<BoletoDTO> consultarBoletoPorUuid(String uuid) {
         return boletoRepository.findByUuid(uuid).map(this::toDTO);
 

@@ -1,5 +1,6 @@
 package br.com.boletos.rabbitmq.consumer;
 
+import br.com.boletos.exceptions.DocumentoInvalidoException;
 import br.com.boletos.integracao.associado.service.AssociadoService;
 import br.com.boletos.model.BoletoPagamentoDTO;
 import br.com.boletos.repositories.BoletoRepository;
@@ -36,13 +37,19 @@ public class ListenerMensagemPagamento {
     public void listener(String json) throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
-        BoletoPagamentoDTO boletoPagamentoDTO = mapper.readValue(json, BoletoPagamentoDTO.class);
+        try {
 
-        String documento = trataDocumento(boletoPagamentoDTO.getDocumentoPagador());
-        String idBoleto = trataIdBoleto(boletoPagamentoDTO.getId());
-        String valor = trataValor(boletoPagamentoDTO.getValor());
+            BoletoPagamentoDTO boletoPagamentoDTO = mapper.readValue(json, BoletoPagamentoDTO.class);
 
-        boletoService.efetuaPagamento(documento, idBoleto, new BigDecimal(valor));
+            String documento = trataDocumento(boletoPagamentoDTO.getDocumentoAssociado());
+            String idBoleto = trataIdBoleto(boletoPagamentoDTO.getIdBoleto());
+            String valor = trataValor(boletoPagamentoDTO.getValorBoleto());
+
+            boletoService.efetuaPagamento(documento, idBoleto, new BigDecimal(valor));
+
+        } catch (JsonProcessingException e) {
+            logger.error("Json não processado - " + e.getMessage());
+        }
 
     }
 
@@ -77,6 +84,7 @@ public class ListenerMensagemPagamento {
                 return documentoPagador;
             }
         } catch (Exception e) {
+
             return documentoPagador;
         }
 
@@ -96,7 +104,7 @@ public class ListenerMensagemPagamento {
                 return true;
             } catch (Exception e) {
                 logger.error("CPF Inválido");
-                return false;
+                throw new DocumentoInvalidoException("CPF Inválido");
             }
         } else {
             CNPJValidator cnpjValidator = new CNPJValidator();
@@ -105,7 +113,7 @@ public class ListenerMensagemPagamento {
                 return true;
             } catch (Exception e) {
                 logger.error("CNPJ Inválido");
-                return false;
+                throw new DocumentoInvalidoException("CPF Inválido");
             }
         }
     }
