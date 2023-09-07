@@ -19,13 +19,4 @@ public class AssociadoService {
         return true;
     }
 
-    public boolean documentoEValido(String documento) {
-        var associado = associadoClient.validarDocumento(documento);
-
-        if(associado == null){
-            return false;
-        }
-        return true;
-    }
-
 }

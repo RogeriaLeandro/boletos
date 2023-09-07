@@ -12,6 +12,7 @@ br/com/boletos/exceptions/AssociadoNaoExisteNaAPIException.class
 br/com/boletos/v1/controller/BoletoController.class
 br/com/boletos/model/Boleto.class
 br/com/boletos/model/SituacaoBoleto.class
+br/com/boletos/exceptions/BoletoNaoEncontradoException.class
 br/com/boletos/handler/BoletosErrorHandler.class
 br/com/boletos/exceptions/DataVencimentoAntesDataAtualException.class
 br/com/boletos/rabbitmq/consumer/ListenerMensagemPagamento.class

@@ -13,7 +13,4 @@ public interface AssociadoClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/v1/associados/{idAssociado}")
     AssociadoDTO consultarAssociado(@PathVariable(value = "idAssociado") String idAssociado);
-
-    @RequestMapping(method = RequestMethod.GET, value = "/v1/associados/{documento}")
-    AssociadoDTO validarDocumento(@PathVariable(value = "idAssociado") String documento);
 }

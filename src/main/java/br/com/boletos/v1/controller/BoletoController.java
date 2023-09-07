@@ -51,7 +51,7 @@ public class BoletoController {
 			@ApiResponse(responseCode = "400", description = "Nenhum boleto pago encontrado para o uuid informado")})
 	@GetMapping(value = "/pagos/{uuid}")
 	public ResponseEntity<BoletoDTO> consultaBoletoPagoPorUUIDAssociado(@RequestParam String uuid)  {
-		return boletoService.consultarBoletoPorUuidEPorSituacao(uuid, SituacaoBoleto.PAGO.getDescricaoSituacaoBoleto())
+		return boletoService.consultarBoletoPorUuidEPorSituacao(uuid, SituacaoBoleto.PAGO)
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.noContent().build());
 	}
@@ -62,7 +62,7 @@ public class BoletoController {
 			@ApiResponse(responseCode = "400", description = "Nenhum boleto em aberto encontrado para o uuid informado")})
 	@GetMapping(value = "/em_aberto/{uuid}")
 	public ResponseEntity<BoletoDTO> consultaBoletoEmAbertoPorUUIDAssociado(@RequestParam String uuid)  {
-		return boletoService.consultarBoletoPorUuidEPorSituacao(uuid, SituacaoBoleto.EM_ABERTO.getDescricaoSituacaoBoleto())
+		return boletoService.consultarBoletoPorUuidEPorSituacao(uuid, SituacaoBoleto.EM_ABERTO)
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.noContent().build());
 	}
