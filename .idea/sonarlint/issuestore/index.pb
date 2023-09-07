@@ -11,7 +11,13 @@ f
 6src/main/java/br/com/boletos/model/SituacaoBoleto.java,4/4/44143948ff05659aaa901e1ad2af1db20ae61931
 b
 2src/main/java/br/com/boletos/v1/dto/BoletoDTO.java,5/f/5f0eaf5d7475c6dd521d03e24fb802398cc0ac4f
-w
-Gsrc/main/java/br/com/boletos/exceptions/DocumentoInvalidoException.java,0/e/0ea0ba0dcab46a12ed6000825fc8d2dd739b5dba
+d
+4src/main/java/br/com/boletos/BoletosApplication.java,9/a/9a675491a7825e4ba976dfa5807510c4ecd3a6c0
+f
+6src/main/java/br/com/boletos/config/SwaggerConfig.java,b/7/b721da13f94165ebd9b05d6c5c84499d75509485
 }
 Msrc/main/java/br/com/boletos/integracao/associado/client/AssociadoClient.java,5/8/58004054510d221a32e91d2be30a35cc417e2058
+}
+Msrc/main/java/br/com/boletos/exceptions/AssociadoNaoExisteNaAPIException.java,5/0/502b08de13807af1f8f4a9bc1c558c887f5c27a8
+y
+Isrc/main/java/br/com/boletos/exceptions/BoletoNaoEncontradoException.java,1/4/14cde4ca23d624873bebe93bc1f10ebe6397d945

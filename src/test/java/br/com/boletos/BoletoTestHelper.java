@@ -7,7 +7,6 @@ import br.com.boletos.model.SituacaoBoleto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static br.com.boletos.model.SituacaoBoleto.PAGO;

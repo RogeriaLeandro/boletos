@@ -9,12 +9,17 @@ import br.com.caelum.stella.validation.CNPJValidator;
 import br.com.caelum.stella.validation.CPFValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -34,20 +39,15 @@ public class ListenerMensagemPagamento {
     private static Logger logger = LoggerFactory.getLogger(ListenerMensagemPagamento.class);
 
     @RabbitListener(queues = "queue")
-    public void listener(String json) throws JsonProcessingException {
+    public void listener(@Payload String payload, Channel channel,
+                         @Header("amqp_deliveryTag") long tag) throws IOException {
+        channel.basicAck(tag, false);
 
-        ObjectMapper mapper = new ObjectMapper();
+        var mapper = new ObjectMapper();
         try {
-
-            BoletoPagamentoDTO boletoPagamentoDTO = mapper.readValue(json, BoletoPagamentoDTO.class);
-
-            String documento = trataDocumento(boletoPagamentoDTO.getDocumentoAssociado());
-            String idBoleto = trataIdBoleto(boletoPagamentoDTO.getIdBoleto());
-            String valor = trataValor(boletoPagamentoDTO.getValorBoleto());
-
-            boletoService.efetuaPagamento(documento, idBoleto, new BigDecimal(valor));
-
-        } catch (JsonProcessingException e) {
+            var boletoPagamentoDTO = mapper.readValue(payload, BoletoPagamentoDTO.class);
+            boletoService.efetuaPagamento(boletoPagamentoDTO.getDocumentoAssociado(), boletoPagamentoDTO.getIdBoleto(), new BigDecimal(boletoPagamentoDTO.getValorBoleto()));
+        } catch (Exception e) {
             logger.error("Json não processado - " + e.getMessage());
         }
 
@@ -70,25 +70,15 @@ public class ListenerMensagemPagamento {
     }
 
     public String trataDocumento(String documentoPagador) {
-
         String cpf = documentoPagador.substring(3, 11);
-        boolean cpfEValido = this.documentoEValido(cpf);
-        boolean cnpjEValido = this.documentoEValido(documentoPagador);
-
-        try {
-            if (cpfEValido) {
-                return cpf;
-            }
-
-            if (cnpjEValido) {
-                return documentoPagador;
-            }
-        } catch (Exception e) {
-
-            return documentoPagador;
+        if(this.documentoEValido(cpf)){
+            return cpf;
         }
 
-        return documentoPagador;
+        if(this.documentoEValido(documentoPagador)){
+            return documentoPagador;
+        }
+        throw new DocumentoInvalidoException("Documento inválido");
     }
 
 
@@ -104,7 +94,6 @@ public class ListenerMensagemPagamento {
                 return true;
             } catch (Exception e) {
                 logger.error("CPF Inválido");
-                throw new DocumentoInvalidoException("CPF Inválido");
             }
         } else {
             CNPJValidator cnpjValidator = new CNPJValidator();
@@ -113,9 +102,10 @@ public class ListenerMensagemPagamento {
                 return true;
             } catch (Exception e) {
                 logger.error("CNPJ Inválido");
-                throw new DocumentoInvalidoException("CPF Inválido");
             }
         }
+
+        return false;
     }
 
 }

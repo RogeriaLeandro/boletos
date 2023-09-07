@@ -1,5 +1,1 @@
-br/com/boletos/v1/controller/BoletoControllerTest.class
-br/com/boletos/v1/service/BoletoServiceTest.class
-br/com/boletos/rabbitmq/consumer/ListenerMensagemPagamentoTest.class
 br/com/boletos/BoletoTestHelper.class
-br/com/boletos/integracao/service/AssociadoServiceTest.class
